@@ -36,9 +36,9 @@ const time = new Date(report.startTime).toString()
 const tableColumns = '| Test | Status |\n |---|---|\n'
 
 let markdownReport = '# Test results\n'
-markdownReport += '**Time performed:** ' + time + '\n\n'
+markdownReport += '**Time performed:** ' + time
 for (const suite of report.testResults) {
-  markdownReport += '## ' + suite.assertionResults[0].ancestorTitles + '\n\n'
+  markdownReport += '\n\n## ' + suite.assertionResults[0].ancestorTitles + '\n\n'
   markdownReport += tableColumns
   for (const test of suite.assertionResults) {
     const status = test.status === 'passed' ? '✅' : '❌'
