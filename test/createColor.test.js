@@ -7,15 +7,15 @@ const numberOfIntervals = 5
 const colorCreator = new ColorCreator()
 
 describe('Create colors for intervals', () => {
-  test('calculates middle RGB value', () => {
+  test('calculate middle RGB value', () => {
     expect(colorCreator.calculateMiddleRgbValue(colorPair)).toEqual([154, 41, 100])
   })
 
-  test('number of colors match number of intervals', () => {
+  test('number of colors matches number of intervals', () => {
     expect(colorCreator.getColors(colors, numberOfIntervals)).toHaveLength(5)
   })
 
-  test('creates more colors to match number of intervals', () => {
+  test('create more colors to match number of intervals', () => {
     expect(colorCreator.getColors(colors, numberOfIntervals)).toStrictEqual([[190, 32, 32], [154, 41, 100], [117, 50, 168], [72, 26, 204], [26, 2, 240]])
   })
 })
