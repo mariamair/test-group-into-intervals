@@ -24,14 +24,17 @@ describe('Calculate interval metadata', () => {
   })
 
   test('calculate range', () => {
-    expect(intervalCreator.getIntervalMetadata().range).toBe(22)
+    const range = intervalCreator.getIntervalMetadata().range
+    expect(range).toBe(22)
   })
 
   test('number of intervals corresponds to number of data points', () => {
-    expect(intervalCreator.getIntervalMetadata().numberOfIntervals).toBe(4)
+    const numberOfIntervals = intervalCreator.getIntervalMetadata().numberOfIntervals
+    expect(numberOfIntervals).toBe(4)
   })
 
   test('interval width corresponds to range and number of intervals', () => {
-    expect(intervalCreator.getIntervalMetadata().intervalWidth).toBe(6)
+    const intervalWidth = intervalCreator.getIntervalMetadata().intervalWidth
+    expect(intervalWidth).toBe(6)
   })
 })
