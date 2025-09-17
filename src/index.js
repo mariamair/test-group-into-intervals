@@ -5,19 +5,20 @@
  * @version 0.0.1
  */
 
+import { execSync } from 'node:child_process'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import fs from 'node:fs/promises'
 
-console.log('index.js')
+// Run the tests, log the output from jest in the console and save the tests to report.json
+console.log(execSync('npm test'))
 
 const directoryFullName = dirname(fileURLToPath(import.meta.url))
 const inputPath = join(directoryFullName, '..', 'reports', 'report.json')
 const outputPath = join(directoryFullName, '..', 'reports', 'report.md')
 
-console.log(inputPath)
-
 readTestReport()
+createMarkdownReport()
 
 async function readTestReport () {
   const result = await fs.readFile(inputPath, 'utf8')
@@ -31,30 +32,31 @@ async function readTestReport () {
   return data
 }
 
-const report = await readTestReport()
-const time = new Date(report.startTime).toString()
-const tableColumns = '| Test | Status |\n |---|---|\n'
+async function createMarkdownReport() {
+  const report = await readTestReport()
+  const time = new Date(report.startTime).toString()
+  const tableColumns = '| Test | Status |\n |---|---|\n'
 
-let markdownReport = '# Test results\n'
-markdownReport += '**Time performed:** ' + time
-for (const suite of report.testResults) {
-  markdownReport += '\n\n## ' + suite.assertionResults[0].ancestorTitles + '\n\n'
-  markdownReport += tableColumns
-  for (const test of suite.assertionResults) {
-    const status = test.status === 'passed' ? '✅' : '❌'
-    markdownReport += '| ' + test.title + ' | ' + status + ' |\n'
+  let markdownReport = ''
+  markdownReport = '# Test results\n'
+  markdownReport += '**Time performed:** ' + time.substring(0, 21)
+  for (const suite of report.testResults) {
+    markdownReport += '\n\n## ' + suite.assertionResults[0].ancestorTitles + '\n\n'
+    markdownReport += tableColumns
+    for (const test of suite.assertionResults) {
+      const status = test.status === 'passed' ? '✅' : '❌'
+      markdownReport += '| ' + test.title + ' | ' + status + ' |\n'
+    }
   }
+  console.log(markdownReport)
+  writeTestReportToMarkdown(markdownReport)
 }
 
-console.log(markdownReport)
-
-async function writeTestReportToMarkdown () {
+async function writeTestReportToMarkdown (markdownReport) {
   try {
-    const result = await fs.writeFile(outputPath, markdownReport)
+    await fs.writeFile(outputPath, markdownReport)
   } catch (error) {
-    error.text = new Error('Could not read file')
+    error.text = new Error('Could not write to file')
     throw error
   }
 }
-
-writeTestReportToMarkdown()
