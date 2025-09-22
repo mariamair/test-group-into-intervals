@@ -39,7 +39,7 @@ async function createMarkdownReport() {
 
   let markdownReport = ''
   markdownReport = '# Test results\n'
-  markdownReport += '**Time performed:** ' + time.substring(0, 21)
+  markdownReport += '**Latest run:** ' + time.substring(0, 21)
   for (const suite of report.testResults) {
     markdownReport += '\n\n## ' + suite.assertionResults[0].ancestorTitles + '\n\n'
     markdownReport += tableColumns
