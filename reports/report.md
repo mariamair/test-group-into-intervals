@@ -1,28 +1,13 @@
 # Test results
-**Latest run:** Mon Sep 22 2025 21:36
-
-## Group input data into intervals
-
-| Test | Status |
- |---|---|
-| should return ascending intervals | ✅ |
-| should return ascending intervals without empty slots for sparse array | ✅ |
-| should return descending intervals | ✅ |
-| should return correct intervals with colors | ✅ |
-| should return correct intervals with colors for sparse array with uneven number of intervals | ✅ |
-| should return correct descending intervals with colors | ✅ |
-| should use correct color scheme for intervals | ✅ |
-| should return error message for incorrect color scheme id | ✅ |
-| should return correct metadata | ✅ |
-
+**Latest run:** Tue Sep 23 2025 09:47
 
 ## Display color schemes
 
 | Test | Status |
  |---|---|
-| should return all color schemes | ✅ |
-| should contain at least one color scheme object | ✅ |
-| should return selected color scheme | ✅ |
+| should return all color schemes (as JSON) | ✅ |
+| should contain at least one color scheme object (as JSON) | ✅ |
+| should return selected color scheme (as JSON) | ✅ |
 
 
 ## Validate input array
@@ -32,3 +17,18 @@
 | should be array | ✅ |
 | should not be mixed array | ✅ |
 | should be array of numbers | ✅ |
+
+
+## Group input data into intervals
+
+| Test | Status |
+ |---|---|
+| should return ascending intervals (as JSON) | ✅ |
+| should return ascending intervals without empty slots for sparse array (as JSON) | ✅ |
+| should return descending intervals (as JSON) | ✅ |
+| should return correct intervals with colors (as JSON) | ✅ |
+| should return correct intervals with colors for sparse array with uneven number of intervals (as JSON) | ✅ |
+| should return correct descending intervals with colors (as JSON) | ✅ |
+| should use correct color scheme for intervals (as JSON) | ✅ |
+| should return error message for incorrect color scheme id (as JSON) | ✅ |
+| should return correct metadata (as JSON) | ✅ |
