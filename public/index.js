@@ -5,21 +5,35 @@
  * @version 0.0.1
  */
 
-import { groupIntoIntervalsWithColorsDescending } from '../group-into-intervals/src/index.js'
+import { groupIntoIntervalsWithColorsAscending, groupIntoIntervalsWithColorsDescending } from '../group-into-intervals/src/index.js'
 
-// const longArray = [1, 3, -5, 7, 8, 5, 4, 4, 17, -2, 12, 3, 1, 3, -5, 7, 8, 5, 4, 4, 17, -2, 12, 3]
-const input = [1, 3, -5, 7, 8, 5, 4, 4, 17, -2, 12, 3]
-const inputElement = document.createElement('p')
-inputElement.textContent = displayDataPoints(input)
-document.querySelector('#input').appendChild(inputElement)
-
+// Variant 1
 const colorSchemeId = 1
-const outputObjectWithColors = JSON.parse(groupIntoIntervalsWithColorsDescending(input, colorSchemeId))
+const input = [1, 3, -5, 7, 8, 5, 4, 4, 17, -2, 12, 3]
+const intervals = JSON.parse(groupIntoIntervalsWithColorsDescending(input, colorSchemeId))
+displayInputData(input)
+createHistogram(intervals)
+displayIntervals(intervals)
 
-createHistogram()
-displayIntervals()
+// Variant 2
+const colorSchemeIdVariant2 = 3
+const inputVariant2 = [1, 3, -5, 7, 8, 5, 4, 4, 17, -2, 12, 3, 1, 3, -5, 7, 8, 5, 4, 4, 17, -2, 12, 3, 22, 27]
+const intervalsVariant2 = JSON.parse(groupIntoIntervalsWithColorsAscending(inputVariant2, colorSchemeIdVariant2))
+displayInputData(inputVariant2)
+displayIntervals(intervalsVariant2)
+createHistogram(intervalsVariant2)
 
-function displayIntervals() {
+function displayInputData(input) {
+  const heading = document.createElement('h2')
+  heading.textContent = 'Input data'
+  document.querySelector('#container').appendChild(heading)
+
+  const inputElement = document.createElement('p')
+  inputElement.textContent = displayDataPoints(input)
+  document.querySelector('#container').appendChild(inputElement)
+}
+
+function displayIntervals(intervals) {
   const heading = document.createElement('h2')
   heading.textContent = 'Output as intervals'
   document.querySelector('#container').appendChild(heading)
@@ -27,7 +41,7 @@ function displayIntervals() {
   let intervalClone
   const intervalTemplate = document.querySelector('#interval')
 
-  for (const interval of outputObjectWithColors) {
+  for (const interval of intervals) {
     intervalClone = intervalTemplate.content.cloneNode(true)
     const swatch = intervalClone.querySelector('.interval-swatch')
     swatch.style.backgroundColor = interval.color.hexValue
@@ -42,14 +56,14 @@ function displayIntervals() {
   }
 }
 
-function createHistogram() {
+function createHistogram(intervals) {
   const heading = document.createElement('h2')
   heading.textContent = 'Output as histogram'
   document.querySelector('#container').appendChild(heading)
 
   let histogramClone
   const histogramTemplate = document.querySelector('#histogram')
-  for (const interval of outputObjectWithColors) {
+  for (const interval of intervals) {
     histogramClone = histogramTemplate.content.cloneNode(true)
     const swatch = histogramClone.querySelector('.interval-swatch')
     swatch.style.backgroundColor = interval.color.hexValue
