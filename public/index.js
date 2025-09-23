@@ -1,0 +1,79 @@
+/**
+ * The starting point of the front-end application.
+ *
+ * @author Maria Mair <mm225mz@stundent.lnu.se>
+ * @version 0.0.1
+ */
+
+import { groupIntoIntervalsWithColorsDescending } from '../group-into-intervals/src/index.js'
+
+// const longArray = [1, 3, -5, 7, 8, 5, 4, 4, 17, -2, 12, 3, 1, 3, -5, 7, 8, 5, 4, 4, 17, -2, 12, 3]
+const input = [1, 3, -5, 7, 8, 5, 4, 4, 17, -2, 12, 3]
+const inputElement = document.createElement('p')
+inputElement.textContent = displayDataPoints(input)
+document.querySelector('#input').appendChild(inputElement)
+
+const colorSchemeId = 1
+const outputObjectWithColors = JSON.parse(groupIntoIntervalsWithColorsDescending(input, colorSchemeId))
+
+createHistogram()
+displayIntervals()
+
+function displayIntervals() {
+  const heading = document.createElement('h2')
+  heading.textContent = 'Output as intervals'
+  document.querySelector('#container').appendChild(heading)
+
+  let intervalClone
+  const intervalTemplate = document.querySelector('#interval')
+
+  for (const interval of outputObjectWithColors) {
+    intervalClone = intervalTemplate.content.cloneNode(true)
+    const swatch = intervalClone.querySelector('.interval-swatch')
+    swatch.style.backgroundColor = interval.color.hexValue
+
+    const boundaries = intervalClone.querySelector('.interval-boundaries')
+    boundaries.textContent = interval.lowerBoundary + ' - ' + interval.upperBoundary
+
+    const dataPoints = intervalClone.querySelector('.interval-datapoints')
+    dataPoints.textContent = 'Data point(s): ' + displayDataPoints(interval.data)
+
+    document.querySelector('#container').appendChild(intervalClone)
+  }
+}
+
+function createHistogram() {
+  const heading = document.createElement('h2')
+  heading.textContent = 'Output as histogram'
+  document.querySelector('#container').appendChild(heading)
+
+  let histogramClone
+  const histogramTemplate = document.querySelector('#histogram')
+  for (const interval of outputObjectWithColors) {
+    histogramClone = histogramTemplate.content.cloneNode(true)
+    const swatch = histogramClone.querySelector('.interval-swatch')
+    swatch.style.backgroundColor = interval.color.hexValue
+    swatch.style.width = 50 * getNumberOfDataPoints(interval.data) + 'px'
+
+    const boundaries = histogramClone.querySelector('.interval-boundaries')
+    boundaries.textContent = interval.lowerBoundary + ' - ' + interval.upperBoundary
+
+    document.querySelector('#container').appendChild(histogramClone)
+  }
+}
+
+// Converts the data points to a text string
+function displayDataPoints (dataPoints) {
+  let text = ''
+  for (const [index, value] of dataPoints.entries()) {
+    text += value
+    if (index < dataPoints.length - 1) {
+      text += ', '
+    }
+  }
+  return text
+}
+
+function getNumberOfDataPoints (dataPoints) {
+  return dataPoints.length
+}

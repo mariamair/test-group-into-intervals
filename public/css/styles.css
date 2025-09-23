@@ -1,7 +1,25 @@
-h1 { color: rgb(110, 25, 25) }
-h2 { color: rgb(168, 50, 50) }
-h3 { color: rgb(168, 50, 129)}
-h4 { color: rgb(117, 50, 168)} 
-h5 { color: rgb(84, 50, 168)}
-h6 { color: rgb(26, 2, 240)}
-p  { color: rgb(12, 1, 104)}
+body {
+  font-size: 16px;
+  margin-left: 20px; 
+}
+
+h2 {
+  padding-top: 20px;
+}
+  
+#interval-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.interval-swatch {
+  width: 50px;
+  height: 50px;
+  border: 1px solid black; 
+  margin: 20px 10px; 
+}
+
+.interval-boundaries, .interval-datapoints {
+  padding: 20px 20px;
+  font-size: 1.2em;
+}

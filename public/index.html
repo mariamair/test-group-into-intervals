@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-  <script type="module" src="/src/index.js"></script>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script type="module" src="./index.js"></script>
   <title>Test application</title>
 </head>
+
 <body>
-  <h1>Test of module Group into intervals</h1>
+  <h1>Test of the Group into intervals module</h1>
+  <h2>Input data</h2>
+  <p id="input"></p>
+  <div id="container">
+    <template id="interval">
+      <div id="interval-container">
+        <div class="interval-swatch"></div>
+        <p class="interval-boundaries"></p>
+        <p class="interval-datapoints"></p>
+      </div>
+    </template>
+
+    <template id="histogram">
+      <div id="interval-container">
+        <p class="interval-boundaries"></p>
+        <div class="interval-swatch"></div>
+      </div>
+    </template>
+  </div>
+  <div id="test-report"></div>
 </body>
+
 </html>
