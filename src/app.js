@@ -15,10 +15,16 @@ console.log(execSync('npm test'))
 
 const directoryFullName = dirname(fileURLToPath(import.meta.url))
 const inputPath = join(directoryFullName, '..', 'reports', 'report.json')
-const outputPath = join(directoryFullName, '..', 'reports', 'report.md')
+const outputPathReport = join(directoryFullName, '..', 'reports', 'report.md')
+const outputPathSummary = join(directoryFullName, '..', 'reports', 'summary.md')
 
-readTestReport()
-createMarkdownReport()
+const report = await readTestReport()
+const markdownReport = createMarkdownReport(report)
+const summary = createSummary(report)
+writeTestReportToMarkdown(outputPathReport, markdownReport)
+writeTestReportToMarkdown(outputPathSummary, summary)
+console.log(markdownReport)
+console.log(summary)
 
 async function readTestReport () {
   const result = await fs.readFile(inputPath, 'utf8')
@@ -32,13 +38,11 @@ async function readTestReport () {
   return data
 }
 
-async function createMarkdownReport() {
-  const report = await readTestReport()
+function createMarkdownReport(report) {
   const time = new Date(report.startTime).toString()
   const tableColumns = '| Test | Status |\n |---|---|\n'
 
-  let markdownReport = ''
-  markdownReport = '# Test results\n'
+  let markdownReport = '# Test results\n'
   markdownReport += '**Latest run:** ' + time.substring(0, 21)
   for (const suite of report.testResults) {
     markdownReport += '\n\n## ' + suite.assertionResults[0].ancestorTitles + '\n\n'
@@ -48,13 +52,28 @@ async function createMarkdownReport() {
       markdownReport += '| ' + test.title + ' | ' + status + ' |\n'
     }
   }
-  console.log(markdownReport)
-  writeTestReportToMarkdown(markdownReport)
+
+  return markdownReport
 }
 
-async function writeTestReportToMarkdown (markdownReport) {
+function createSummary(report) {
+  const time = new Date(report.startTime).toString()
+  const tableColumns = '\n\n|  | Failed | Passed | Total |\n |---|---|---|---|\n'
+
+  let summary = '# Summary of test results\n'
+  summary += '**Latest run:** ' + time.substring(0, 21)
+  summary += tableColumns
+  summary += '| Test suites | ' +
+    report.numFailedTestSuites + ' | ' + report.numPassedTestSuites + ' | ' + report.numTotalTestSuites + ' |\n'
+  summary += '| Tests | ' +
+    report.numFailedTests + ' | ' + report.numPassedTests + ' | ' + report.numTotalTests + ' |\n'
+
+  return summary
+}
+
+async function writeTestReportToMarkdown (outputPath, report) {
   try {
-    await fs.writeFile(outputPath, markdownReport)
+    await fs.writeFile(outputPath, report)
   } catch (error) {
     error.text = new Error('Could not write to file')
     throw error
