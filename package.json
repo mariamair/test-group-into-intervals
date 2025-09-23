@@ -4,7 +4,7 @@
   "description": "Test application for the group-into-intervals module.",
   "main": ".src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node src/app.js",
     "lint": "npx eslint src",
     "test": "npx --node-options=--experimental-vm-modules jest --coverage --json --outputFile=reports/report.json || exit 0"
   },
