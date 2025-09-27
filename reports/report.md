@@ -1,5 +1,5 @@
 # Test results
-**Latest run:** Tue Sep 23 2025 16:53
+**Latest run:** Sat Sep 27 2025 19:16
 
 ## Display color schemes
 
@@ -8,15 +8,6 @@
 | should return all color schemes (as JSON) | ✅ |
 | should contain at least one color scheme object (as JSON) | ✅ |
 | should return selected color scheme (as JSON) | ✅ |
-
-
-## Validate input array
-
-| Test | Status |
- |---|---|
-| should be array | ✅ |
-| should not be mixed array | ✅ |
-| should be array of numbers | ✅ |
 
 
 ## Group input data into intervals
@@ -31,4 +22,14 @@
 | should return correct descending intervals with colors (as JSON) | ✅ |
 | should use correct color scheme for intervals (as JSON) | ✅ |
 | should return error message for incorrect color scheme id (as JSON) | ✅ |
+| should return error message if color scheme id is missing (as JSON) | ✅ |
 | should return correct metadata (as JSON) | ✅ |
+
+
+## Validate input array
+
+| Test | Status |
+ |---|---|
+| should be array | ✅ |
+| should not be mixed array | ✅ |
+| should be array of numbers | ✅ |
