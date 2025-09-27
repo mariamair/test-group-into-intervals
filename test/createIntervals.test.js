@@ -1,5 +1,5 @@
 /* eslint-disable no-sparse-arrays */
-import { groupIntoIntervalsAscending, groupIntoIntervalsDescending, groupIntoIntervalsWithColorsAscending, groupIntoIntervalsWithColorsDescending, getIntervalMetadata } from '../group-into-intervals/src/index.js'
+import { getAscendingIntervals, getDescendingIntervals, getAscendingIntervalsWithColors, getDescendingIntervalsWithColors, getIntervalMetadata } from '../group-into-intervals/src/index.js'
 
 const colorSchemeId = 1
 
@@ -59,38 +59,42 @@ const outputObjectWithColorsSparseArray = JSON.stringify([
 
 describe('Group input data into intervals', () => {
   test('should return ascending intervals (as JSON)', () => {
-    expect(groupIntoIntervalsAscending(inputArray)).toStrictEqual(outputObject)
+    expect(getAscendingIntervals(inputArray)).toStrictEqual(outputObject)
   })
 
   test('should return ascending intervals without empty slots for sparse array (as JSON)', () => {
-    expect(groupIntoIntervalsAscending(sparseArray)).toStrictEqual(outputObjectSparseArray)
+    expect(getAscendingIntervals(sparseArray)).toStrictEqual(outputObjectSparseArray)
   })
 
   test('should return descending intervals (as JSON)', () => {
-    expect(groupIntoIntervalsDescending(inputArray, false)).toStrictEqual(outputObjectDescending)
+    expect(getDescendingIntervals(inputArray, false)).toStrictEqual(outputObjectDescending)
   })
 })
 
 describe('Group input data into intervals with colors', () => {
   test('should return correct intervals with colors (as JSON)', () => {
-    expect(groupIntoIntervalsWithColorsAscending(inputArray, colorSchemeId)).toStrictEqual(outputObjectWithColors)
+    expect(getAscendingIntervalsWithColors(inputArray, colorSchemeId)).toStrictEqual(outputObjectWithColors)
   })
 
   test('should return correct intervals with colors for sparse array with uneven number of intervals (as JSON)', () => {
-    expect(groupIntoIntervalsWithColorsAscending(sparseArray, colorSchemeId)).toStrictEqual(outputObjectWithColorsSparseArray)
+    expect(getAscendingIntervalsWithColors(sparseArray, colorSchemeId)).toStrictEqual(outputObjectWithColorsSparseArray)
   })
 
   test('should return correct descending intervals with colors (as JSON)', () => {
-    expect(groupIntoIntervalsWithColorsDescending(inputArray, colorSchemeId)).toStrictEqual(outputObjectDescendingWithColors)
+    expect(getDescendingIntervalsWithColors(inputArray, colorSchemeId)).toStrictEqual(outputObjectDescendingWithColors)
   })
 
   test('should use correct color scheme for intervals (as JSON)', () => {
     const colorSchemeId = 4
-    expect(groupIntoIntervalsWithColorsAscending(inputArray, colorSchemeId)).toStrictEqual(outputObjectGreenColors)
+    expect(getAscendingIntervalsWithColors(inputArray, colorSchemeId)).toStrictEqual(outputObjectGreenColors)
   })
 
   test('should return error message for incorrect color scheme id (as JSON)', () => {
-    expect(groupIntoIntervalsWithColorsAscending(inputArray, 2345)).toEqual(JSON.stringify('Not a valid color scheme'))
+    expect(getAscendingIntervalsWithColors(inputArray, 2345)).toEqual(JSON.stringify('Not a valid color scheme'))
+  })
+
+  test('should return error message if color scheme id is missing (as JSON)', () => {
+    expect(getAscendingIntervalsWithColors(inputArray)).toEqual(JSON.stringify('Not a valid color scheme'))
   })
 
   test('should return correct metadata (as JSON)', () => {

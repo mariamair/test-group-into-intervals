@@ -1,4 +1,4 @@
-import { displayColorSchemes, displayColorScheme } from '../group-into-intervals/src/index.js'
+import { getAllColorSchemes, getColorScheme } from '../group-into-intervals/src/index.js'
 
 const colorSchemeId = 3
 const colorSchemeOutput = JSON.stringify({
@@ -10,11 +10,11 @@ const colorSchemeOutput = JSON.stringify({
 
 describe('Display color schemes', () => {
   test('should return all color schemes (as JSON)', () => {
-    expect(JSON.parse(displayColorSchemes())).toHaveLength(4)
+    expect(JSON.parse(getAllColorSchemes())).toHaveLength(4)
   })
 
   test('should contain at least one color scheme object (as JSON)', () => {
-    const firstColorScheme = JSON.parse(displayColorSchemes())[0]
+    const firstColorScheme = JSON.parse(getAllColorSchemes())[0]
     expect(firstColorScheme).toHaveProperty('id')
     expect(firstColorScheme).toHaveProperty('name')
     expect(firstColorScheme).toHaveProperty('hexValues')
@@ -22,6 +22,6 @@ describe('Display color schemes', () => {
   })
 
   test('should return selected color scheme (as JSON)', () => {
-    expect(displayColorScheme(colorSchemeId)).toStrictEqual(colorSchemeOutput)
+    expect(getColorScheme(colorSchemeId)).toStrictEqual(colorSchemeOutput)
   })
 })
