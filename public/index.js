@@ -23,61 +23,82 @@ displayInputData(inputVariant2)
 displayIntervals(intervalsVariant2)
 createHistogram(intervalsVariant2)
 
-function displayInputData(input) {
-  const heading = document.createElement('h2')
-  heading.textContent = 'Input data'
-  document.querySelector('#container').appendChild(heading)
+function displayInputData (input) {
+  const text = 'Input data'
+  displayHeading(text)
 
   const inputElement = document.createElement('p')
-  inputElement.textContent = displayDataPoints(input)
+  inputElement.textContent = convertDataPoints(input)
   document.querySelector('#container').appendChild(inputElement)
 }
 
-function displayIntervals(intervals) {
-  const heading = document.createElement('h2')
-  heading.textContent = 'Output as intervals'
-  document.querySelector('#container').appendChild(heading)
+function displayIntervals (intervals) {
+  const text = 'Output as intervals'
+  displayHeading(text)
 
   let intervalClone
   const intervalTemplate = document.querySelector('#interval')
 
   for (const interval of intervals) {
     intervalClone = intervalTemplate.content.cloneNode(true)
-    const swatch = intervalClone.querySelector('.interval-swatch')
-    swatch.style.backgroundColor = interval.color.hexValue
 
-    const boundaries = intervalClone.querySelector('.interval-boundaries')
-    boundaries.textContent = interval.lowerBoundary + ' - ' + interval.upperBoundary
+    displayColorSwatches(intervalClone, interval)
 
-    const dataPoints = intervalClone.querySelector('.interval-datapoints')
-    dataPoints.textContent = 'Data point(s): ' + displayDataPoints(interval.data)
+    displayBoundaries(intervalClone, interval)
+
+    displayDataPoints(intervalClone, interval)
 
     document.querySelector('#container').appendChild(intervalClone)
   }
 }
 
-function createHistogram(intervals) {
-  const heading = document.createElement('h2')
-  heading.textContent = 'Output as histogram'
-  document.querySelector('#container').appendChild(heading)
+function createHistogram (intervals) {
+  const text = 'Output as histogram'
+  displayHeading(text)
 
   let histogramClone
   const histogramTemplate = document.querySelector('#histogram')
+
   for (const interval of intervals) {
     histogramClone = histogramTemplate.content.cloneNode(true)
-    const swatch = histogramClone.querySelector('.interval-swatch')
-    swatch.style.backgroundColor = interval.color.hexValue
-    swatch.style.width = 50 * getNumberOfDataPoints(interval.data) + 'px'
 
-    const boundaries = histogramClone.querySelector('.interval-boundaries')
-    boundaries.textContent = interval.lowerBoundary + ' - ' + interval.upperBoundary
+    displayHistogram(histogramClone, interval)
+
+    displayBoundaries(histogramClone, interval)
 
     document.querySelector('#container').appendChild(histogramClone)
   }
 }
 
+function displayHistogram(clone, interval) {
+  const swatch = clone.querySelector('.interval-swatch')
+  swatch.style.backgroundColor = interval.color.hexValue
+  swatch.style.width = 50 * getNumberOfDataPoints(interval.data) + 'px'
+}
+
+function displayHeading(text) {
+  const heading = document.createElement('h2')
+  heading.textContent = text
+  document.querySelector('#container').appendChild(heading)
+}
+
+function displayColorSwatches(clone, interval) {
+  const swatch = clone.querySelector('.interval-swatch')
+  swatch.style.backgroundColor = interval.color.hexValue
+}
+
+function displayBoundaries (clone, interval) {
+  const boundaries = clone.querySelector('.interval-boundaries')
+  boundaries.textContent = interval.lowerBoundary + ' - ' + interval.upperBoundary
+}
+
+function displayDataPoints(clone, interval) {
+  const dataPoints = clone.querySelector('.interval-datapoints')
+  dataPoints.textContent = 'Data point(s): ' + convertDataPoints(interval.data)
+}
+
 // Converts the data points to a text string
-function displayDataPoints (dataPoints) {
+function convertDataPoints (dataPoints) {
   let text = ''
   for (const [index, value] of dataPoints.entries()) {
     text += value
