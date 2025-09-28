@@ -2,10 +2,10 @@
   "name": "test-my-module",
   "version": "0.0.1",
   "description": "Test application for the group-into-intervals module.",
-  "main": ".src/index.js",
+  "main": "./src/index.js",
   "scripts": {
-    "start": "node src/app.js",
-    "lint": "npx eslint src",
+    "start": "node ./test/app.js",
+    "lint": "npx eslint ./test/app.js",
     "test": "npx --node-options=--experimental-vm-modules jest --coverage --json --outputFile=reports/report.json || exit 0"
   },
   "repository": "https://github.com/mariamair/test-group-into-intervals.git",
