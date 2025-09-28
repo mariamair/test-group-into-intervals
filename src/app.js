@@ -40,7 +40,7 @@ async function readTestReport () {
 
 function createMarkdownReport(report) {
   const time = new Date(report.startTime).toString()
-  const tableColumns = '| Test | Status |\n |---|---|\n'
+  const tableColumns = '| Test | Status |\n|------|--------|\n'
 
   let markdownReport = '# Test results\n'
   markdownReport += '**Latest run:** ' + time.substring(0, 21)
@@ -58,7 +58,7 @@ function createMarkdownReport(report) {
 
 function createSummary(report) {
   const time = new Date(report.startTime).toString()
-  const tableColumns = '\n\n|  | Failed | Passed | Total |\n |---|---|---|---|\n'
+  const tableColumns = '\n\n|   | Failed | Passed | Total |\n|---|--------|--------|-------|\n'
 
   let summary = '# Summary of test results\n'
   summary += '**Latest run:** ' + time.substring(0, 21)
