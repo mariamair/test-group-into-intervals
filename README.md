@@ -6,5 +6,7 @@ The application runs the unit tests and logs the test results to the console and
 ## Usage
 Start the tests with `npm start`.
 
+Use the Live Server extension to display the frontend.
+
 
 #javascript
