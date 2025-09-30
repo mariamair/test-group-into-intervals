@@ -12,9 +12,11 @@
   "author": "Maria Mair <mm225mz@student.lnu.se>",
   "license": "MIT",
   "type": "module",
-
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.10",
     "jest": "^30.1.3"
+  },
+  "dependencies": {
+    "group-into-intervals": "^1.0.0"
   }
 }
