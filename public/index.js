@@ -6,7 +6,7 @@
  * @version 0.0.1
  */
 
-import { getAscendingIntervalsWithColors, getDescendingIntervalsWithColors } from '../group-into-intervals/src/index.js'
+import { getAscendingIntervalsWithColors, getDescendingIntervalsWithColors } from 'group-into-intervals'
 
 displayVariant1()
 displayVariant2()

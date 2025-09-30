@@ -1,4 +1,4 @@
-import { getAllColorSchemes, getColorScheme } from '../group-into-intervals/src/index.js'
+import { getAllColorSchemes, getColorScheme } from 'group-into-intervals'
 
 const colorSchemeId = 3
 const colorSchemeOutput = JSON.stringify({

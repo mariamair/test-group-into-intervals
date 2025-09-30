@@ -1,5 +1,5 @@
 /* eslint-disable no-sparse-arrays */
-import { getAscendingIntervals, getDescendingIntervals, getAscendingIntervalsWithColors, getDescendingIntervalsWithColors, getIntervalMetadata } from '../group-into-intervals/src/index.js'
+import { getAscendingIntervals, getDescendingIntervals, getAscendingIntervalsWithColors, getDescendingIntervalsWithColors, getIntervalMetadata } from 'group-into-intervals'
 
 const colorSchemeId = 1
 
